@@ -1,71 +1,61 @@
-import TicketCard from '../components/TicketCard';
-import styled from "styled-components";
-
-const tickets = [
-  {
-    category: "This month",
-    color: "#0a9bf5",
-    title: "PGT line launch",
-    owner: "Nasrah",
-    avatar:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDMZQTZ10-Af45Zu-gzX7KmQDQdllbsw2oMQ&usqp=CAU",
-    status: "Done",
-    priority: 5,
-    porgress: 40,
-    description: "Plan a strategy to launch new PGT line",
-    timestamp: "2022-04-11T07:36:17+0000",
-  },
-  {
-    category: "This month",
-    color: "#0a9bf5",
-    title: "PGT line launch",
-    owner: "Nasrah",
-    avatar: "",
-    status: "Working on it",
-    priority: 3,
-    porgress: 60,
-    description: "Plan a strategy to launch new PGT line",
-    timestamp: "2022-04-11T07:36:17+0000",
-  },
-  {
-    category: "Next month",
-    color: "#0a9bf5",
-    title: "PGT line progress",
-    owner: "Nasrah",
-    avatar:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDMZQTZ10-Af45Zu-gzX7KmQDQdllbsw2oMQ&usqp=CAU",
-    status: "Stuck",
-    priority: 2,
-    porgress: 10,
-    description: "Go over last months kpi's",
-    timestamp: "2022-05-11T07:36:17+0000",
-  },
-];
-
-const colors = ["#1a1aff", "#8a2be2", "#228b22", "#c71585", "#4d4dff"];
-
-const uniqueCategories = [
-  ...new Set(tickets?.map(({category}) => category))
-]
-
-console.log(uniqueCategories)
+import { useState, useEffect, useContext } from 'react'
+import TicketCard from '../components/TicketCard'
+import CategoryContext from '../context'
+import styled from "styled-components"
+import axios from 'axios'
 
 const Dashboard = () => {
+  const [tickets, setTickets] = useState(null)
+  // eslint-disable-next-line no-unused-vars
+  const { categories, setCategories } = useContext(CategoryContext);
+
+  const results = async () => {
+    const response = await axios.get("http://localhost:5000/ticket");
+
+    const data = response.data;
+    setTickets(data)
+  };
+
+  useEffect(() => {
+    results()
+  }, [])
+  
+    useEffect(() => {
+      setCategories([...new Set(tickets?.map(({ category }) => category))]);
+    }, [setCategories, tickets]);
+
+  const colors = ["#1a1aff", "#8a2be2", "#228b22", "#c71585", "#4d4dff"];
+
+  const uniqueCategories = [
+    ...new Set(tickets?.map(({ category }) => category))
+  ];
   return (
     <DashboardContainer>
       <h1>My Projects</h1>
       <TicketContainer>
-        {
-          tickets && uniqueCategories?.map((uniqueCategory, index) => (
-            <div key={index}>
-              <h3>{uniqueCategory}</h3>
-              {tickets.filter(ticket => ticket.category === uniqueCategory).map((filteredTicket, _index) => (
-                <TicketCard id={_index} color={colors[index] || colors[2]} ticket={filteredTicket} />
-              ))}
-            </div>
-          ))
-        }
-        
+        {tickets &&
+          uniqueCategories?.map((uniqueCategory, index) => (
+            <Category key={index}>
+              <Header>
+                <h3>{uniqueCategory}</h3>
+                <p>Owner</p>
+                <p>Status</p>
+                <p>Priority</p>
+                <p>Progress</p>
+                <p>Delete</p>
+              </Header>
+              {tickets
+                .filter((ticket) => ticket.category === uniqueCategory)
+                .map((filteredTicket, _index) => (
+                  <TicketCard
+                    key={_index}
+                    id={filteredTicket._id}
+                    color={colors[index] || colors[2]}
+                    ticket={filteredTicket}
+                  />
+                ))}
+            </Category>
+          ))}
       </TicketContainer>
     </DashboardContainer>
   );
@@ -80,11 +70,23 @@ width: 100%;
 
 const TicketContainer = styled.div`
   height: 80vh;
-  -ms-overflow-style: none; /* for Internet Explorer, Edge */
-  scrollbar-width: none; /* for Firefox */
+  padding: 1rem 0;
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
   overflow: scroll;
 
   &::-webkit-scrollbar {
-    display: none; /* for Chrome, Safari, and Opera */
+    display: none; 
   }
 `;
+
+const Category = styled.div`
+padding-bottom: 2rem;
+`
+
+const Header = styled.div`
+display: flex;
+flex-direction: row;
+width: 100%;
+justify-content: space-between;
+`

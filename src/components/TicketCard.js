@@ -9,19 +9,19 @@ import styled from 'styled-components'
 
 const TicketCard = ({color, ticket}) => {
 
-  const { title, owner, avatar, status, priority, progress} = ticket;
+  const { _id, title, owner, avatar, status, priority, progress} = ticket;
 
   return (
     <Card>
       <Indicator style={{backgroundColor: color}}></Indicator>
-      <StyledLink to="/" id="link">
+      <StyledLink to={`/ticket/${_id}`} id="link">
         <h3>{title}</h3>
         <AvatarDisplay owner={owner} avatar={avatar}/>
         <StatusDisplay status={status}/>
         <PriorityDisplay priority={priority}/>
         <ProgressDisplay color={color} progress={progress}/>
       </StyledLink>
-      <DeleteBlock />
+      <DeleteBlock id={_id}/>
     </Card>
   );
 }
@@ -46,13 +46,12 @@ const StyledLink = styled(Link)`
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
   }
 
-  h3 {
-  }
 `;
 
 const Indicator = styled.div`
-width: 12px;
-margin: 2px 0;
+  margin: 2px 0;
+  padding: 6px;
 `

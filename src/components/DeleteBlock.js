@@ -1,10 +1,16 @@
 import styled from 'styled-components'
 import { TiDelete } from 'react-icons/ti'
+import axios from 'axios'
 
-const DeleteBlock = () => {
+const DeleteBlock = (_id) => {
 
-  const deleteTicket = () => {
-    console.log("delete")
+  const deleteTicket = async() => {
+    const id = _id.id
+    const response = await axios.delete(`http://localhost:5000/ticket/${id}`);
+
+    if(response.status === 201) {
+      window.location.reload()
+    }
   }
   return (
     <DeleteContainer onClick={deleteTicket}>
