@@ -115,7 +115,7 @@ const Tickets = ({ editMode }) => {
             <label>Category</label>
             <select
               name="category"
-              value={formData.category || categories[0]}
+              value={formData.category}
               onChange={handleChange}
             >
               {categories?.map((category, i) => (
