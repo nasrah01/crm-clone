@@ -19,7 +19,7 @@ const ProgressContainer = styled.div`
   justify-content: center;
 
   @media screen and (max-width: 1000px) {
-    display: none;
+    display: none !important;
   }
 `;
 

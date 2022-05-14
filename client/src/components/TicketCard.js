@@ -61,4 +61,8 @@ const StyledLink = styled(Link)`
 const Indicator = styled.div`
   margin: 2px 0;
   padding: 6px;
+
+  @media screen and (max-width: 550px) {
+    padding: 3px;
+  }
 `
