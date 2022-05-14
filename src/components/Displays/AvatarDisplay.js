@@ -26,9 +26,15 @@ height: 50px;
 border-radius: 25px;
 overflow: hidden;
 
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 550px) {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+  }
 `

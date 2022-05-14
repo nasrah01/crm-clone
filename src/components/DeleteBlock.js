@@ -25,7 +25,7 @@ const DeleteContainer = styled.div`
   background: #f2f2f2;
   margin: 2px 2px 2px 0;
   padding: 10px;
-  width: 50px;
+  width: 20px;
   display: flex;
   align-items: center;
   justify-content: center;

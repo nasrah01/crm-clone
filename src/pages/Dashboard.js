@@ -31,30 +31,29 @@ const Dashboard = () => {
   ];
   return (
     <DashboardContainer>
-      <h1>My Projects</h1>
+      <h1>Monthly overview</h1>
       <TicketContainer>
         {tickets &&
           uniqueCategories?.map((uniqueCategory, index) => (
-            <Category key={index}>
-              <Header>
-                <h3>{uniqueCategory}</h3>
-                <p>Owner</p>
-                <p>Status</p>
-                <p>Priority</p>
-                <p>Progress</p>
-                <p>Delete</p>
-              </Header>
-              {tickets
-                .filter((ticket) => ticket.category === uniqueCategory)
-                .map((filteredTicket, _index) => (
-                  <TicketCard
-                    key={_index}
-                    id={filteredTicket._id}
-                    color={colors[index] || colors[2]}
-                    ticket={filteredTicket}
-                  />
-                ))}
-            </Category>
+            <CategoryContainer>
+              <CategoryTitle>
+                <h2 style={{ color: colors[index] || colors[2] }}>
+                  {uniqueCategory}
+                </h2>
+              </CategoryTitle>
+              <Category key={index}>
+                {tickets
+                  .filter((ticket) => ticket.category === uniqueCategory)
+                  .map((filteredTicket, _index) => (
+                    <TicketCard
+                      key={_index}
+                      id={filteredTicket._id}
+                      color={colors[index] || colors[2]}
+                      ticket={filteredTicket}
+                    />
+                  ))}
+              </Category>
+            </CategoryContainer>
           ))}
       </TicketContainer>
     </DashboardContainer>
@@ -64,9 +63,23 @@ const Dashboard = () => {
 export default Dashboard;
 
 const DashboardContainer = styled.div`
-padding: 2rem;
-width: 100%;
-`
+  padding: 2rem 2rem 0 2rem;
+  width: 100%;
+
+  h1 {
+    font-weight: 500;
+    color: #404040;
+  }
+
+  @media screen and (max-width: 550px) {
+    padding: 2rem 0 0 0;
+
+    h1 {
+      margin-left: 1rem;
+      font-size: 26px;
+    }
+  }
+`;
 
 const TicketContainer = styled.div`
   height: 80vh;
@@ -80,13 +93,19 @@ const TicketContainer = styled.div`
   }
 `;
 
+const CategoryContainer = styled.div`
+  margin: 1rem 0;
+`;
+
 const Category = styled.div`
-padding-bottom: 2rem;
+  padding-bottom: 2rem;
 `
 
-const Header = styled.div`
-display: flex;
-flex-direction: row;
-width: 100%;
-justify-content: space-between;
-`
+const CategoryTitle = styled.div`
+  padding-left: 12px;
+
+  h2 {
+    margin-bottom: 0.5rem;
+    font-size: clamp(12px, 1.5vw, 24px);
+  }
+`;

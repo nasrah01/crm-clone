@@ -14,9 +14,13 @@ const ProgressDisplay = ({color, progress}) => {
 export default ProgressDisplay;
 
 const ProgressContainer = styled.div`
-min-width: 200px;
-display: flex;
-justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  @media screen and (max-width: 1000px) {
+    display: none;
+  }
 `;
 
 const ProgressBar = styled.div`

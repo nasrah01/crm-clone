@@ -84,6 +84,7 @@ const Tickets = ({ editMode }) => {
     if(editMode) {
       getData()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -240,9 +241,31 @@ const Tickets = ({ editMode }) => {
 export default Tickets
 
 const TicketContainer = styled.div`
-width: 100%;
-padding: 2rem;
-`
+  width: 100%;
+  padding: 2rem 2rem 0 2rem;
+
+  h1 {
+    font-weight: 500;
+    color: #404040;
+  }
+
+  @media screen and (max-width: 1000px) {
+    height: 90vh;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 550px) {
+    h1 {
+      font-size: 26px;
+    }
+  }
+`;
 
 const TicketBlock = styled.div`
   width: 100%;
@@ -255,32 +278,45 @@ const Form = styled.form`
   display: flex;
   box-shadow: rgba(230, 230, 255, 0.5) 0px 22px 70px 4px;
   border-radius: 10px;
+
+  @media screen and (max-width: 1000px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const FormSection = styled("section")`
-display:flex;
-flex-direction: column;
-margin: 1rem;
-width: 400px;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  width: 400px;
 
-label {
-  margin: 1.5rem 0 .5rem 0;
-  font-weight: 700;
-}
+  label {
+    margin: 1.5rem 0 0.5rem 0;
+    font-weight: 700;
+  }
 
-select, input {
-  padding: 5px;
-  font-size: 14px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin: 5px;
-}
+  select,
+  input {
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 5px;
+  }
 
-input[type=submit] {
-  margin: 2rem 0;
-  padding: 6px 16px;
-  background-color: #6c6cff;
-  color: #fff;
-  font-size: 16px;
-}
+  input[type="submit"] {
+    margin: 2rem 0;
+    padding: 6px 16px;
+    background-color: #6c6cff;
+    color: #fff;
+    font-size: 16px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    margin: 0 1rem;
+  }
+
+  @media screen and (max-width: 550px) {
+    width: 80vw;
+  }
 `;

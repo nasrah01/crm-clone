@@ -29,8 +29,7 @@ const TicketCard = ({color, ticket}) => {
 export default TicketCard
 
 const Card = styled.div`
-display: flex;
-width: 100%;
+  display: flex;
 `
 
 const StyledLink = styled(Link)`
@@ -40,15 +39,23 @@ const StyledLink = styled(Link)`
   color: #000;
 
   > * {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
     background: #f2f2f2;
     margin: 2px 2px 2px 0;
     padding: 10px;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
   }
 
+  h3 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: #404040;
+    font-weight: normal;
+    font-size: clamp(10px, 1vw, 16px);
+  }
 `;
 
 const Indicator = styled.div`

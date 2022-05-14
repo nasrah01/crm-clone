@@ -31,7 +31,8 @@ const StatusDisplay = ({status}) => {
 export default StatusDisplay;
 
 const StatusContainer = styled.div`
-color: #fff;
-display: flex;
-justify-content: center;
-`
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  font-size: clamp(10px, 1vw, 16px);
+`;

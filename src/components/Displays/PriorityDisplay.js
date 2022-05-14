@@ -17,9 +17,13 @@ const PriorityDisplay = ({priority}) => {
 export default PriorityDisplay;
 
 const PriorityContainer = styled.div`
-display: flex;
-justify-content: center;
-`
+  display: flex;
+  justify-content: center;
+
+  @media screen and (max-width: 700px) {
+    display: none;
+  }
+`;
 
 const StarContainer = styled.div`
 display: flex;
