@@ -10,7 +10,7 @@ const Dashboard = () => {
   const { categories, setCategories } = useContext(CategoryContext);
 
   const results = async () => {
-    const response = await axios.get("http://localhost:5000/ticket");
+    const response = await axios.get("https://crm-monday.herokuapp.com/ticket");
 
     const data = response.data;
     setTickets(data)

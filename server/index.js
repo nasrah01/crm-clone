@@ -90,6 +90,6 @@ db.once("open", function () {
   console.log("Connected successfully");
 });
 
-app.listen(PORT, () =>
-  console.log(`Server on http://localhost:${PORT}`)
+app.listen(process.env.PORT || 5000, () =>
+  console.log(`successfully connected`)
 );
