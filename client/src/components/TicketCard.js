@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
-import AvatarDisplay from '../components/Displays/AvatarDisplay'
-import ProgressDisplay from "../components/Displays/ProgressDisplay";
-import StatusDisplay from "../components/Displays/StatusDisplay";
-import PriorityDisplay from "../components/Displays/PriorityDisplay";
-import DeleteBlock from "../components/DeleteBlock";
+import AvatarDisplay from './Displays/AvatarDisplay'
+import ProgressDisplay from "./Displays/ProgressDisplay";
+import StatusDisplay from "./Displays/StatusDisplay";
+import PriorityDisplay from "./Displays/PriorityDisplay";
+import DeleteBlock from "./DeleteBlock";
 import styled from 'styled-components'
 
 
