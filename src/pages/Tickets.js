@@ -243,21 +243,18 @@ export default Tickets
 const TicketContainer = styled.div`
   width: 100%;
   padding: 2rem 2rem 0 2rem;
+  height: 90vh;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   h1 {
     font-weight: 500;
     color: #404040;
-  }
-
-  @media screen and (max-width: 1000px) {
-    height: 90vh;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    overflow: scroll;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
 
   @media screen and (max-width: 550px) {
