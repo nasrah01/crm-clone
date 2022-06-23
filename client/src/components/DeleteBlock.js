@@ -6,7 +6,10 @@ const DeleteBlock = (_id) => {
 
   const deleteTicket = async() => {
     const id = _id.id
-    const response = await axios.delete(`http://localhost:5000/ticket/${id}`);
+    const response = await axios.delete(
+      `https://crm-monday.herokuapp.com/tickety
+      /${id}`
+    );
 
     if(response.status === 201) {
       window.location.reload()
@@ -29,4 +32,5 @@ const DeleteContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 `;
