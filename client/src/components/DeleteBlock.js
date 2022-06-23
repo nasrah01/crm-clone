@@ -7,8 +7,7 @@ const DeleteBlock = (_id) => {
   const deleteTicket = async() => {
     const id = _id.id
     const response = await axios.delete(
-      `https://crm-monday.herokuapp.com/tickety
-      /${id}`
+      `https://crm-monday.herokuapp.com/ticket/${id}`
     );
 
     if(response.status === 201) {
