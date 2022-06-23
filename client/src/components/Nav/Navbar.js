@@ -28,14 +28,15 @@ width: 50px;
 background: #0f1048;
 display: flex;
 flex-direction: column;
-justify-content: space-between;
 align-items: center;
 `
 
 const Controls = styled.div`
-padding-bottom: 1rem;
+  padding-top: 3rem;
+  cursor: pointer;
 `;
 
 const Icon = styled.div`
-padding-top: 1rem;
+  padding-top: 1rem;
+  cursor: pointer;
 `;

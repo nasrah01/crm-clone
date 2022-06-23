@@ -309,6 +309,12 @@ const FormSection = styled("section")`
     background-color: #6c6cff;
     color: #fff;
     font-size: 16px;
+    cursor: pointer;
+    transition: 0.5s ease;
+
+    &:hover {
+      background-color: #3333ff;
+    }
   }
 
   @media screen and (max-width: 1000px) {

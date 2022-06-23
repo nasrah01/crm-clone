@@ -3,6 +3,7 @@ import TicketCard from '../components/TicketCard'
 import CategoryContext from '../context'
 import styled from "styled-components"
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
   const [tickets, setTickets] = useState(null)
@@ -31,9 +32,17 @@ const Dashboard = () => {
   ];
   return (
     <DashboardContainer>
-      <h1>Monthly overview</h1>
+      {tickets?.length > 0 ? (
+        <h1>Monthly overview</h1>
+      ) : (
+        <Starter>
+          <StyledLink to="/ticket">
+            <h2>Click to start your workflow!</h2>
+          </StyledLink>
+        </Starter>
+      )}
       <TicketContainer>
-        {tickets &&
+        {tickets?.length > 0 &&
           uniqueCategories?.map((uniqueCategory, index) => (
             <CategoryContainer>
               <CategoryTitle>
@@ -95,6 +104,20 @@ const TicketContainer = styled.div`
 
 const CategoryContainer = styled.div`
   margin: 1rem 0;
+`;
+
+const Starter = styled.div`
+  font-size: 14px;
+  font-weight: 400;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #003366;
+
+  &:hover {
+    color: #0066cc;
+  }
 `;
 
 const Category = styled.div`
