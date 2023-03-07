@@ -1,15 +1,33 @@
 import styled from 'styled-components'
+import {BsFlagFill} from 'react-icons/bs'
 
 const PriorityDisplay = ({priority}) => {
+
+    const levels = (priority) => {
+      let color;
+      switch (priority) {
+        case 1:
+          color = "#40bf77";
+          break;
+        case 2:
+          color = "#ffa500";
+          break;
+        case 3:
+          color = "#dc143c";
+          break;
+        default:
+          color = "rgb(30, 144, 255)";
+          break;
+      }
+
+      return color;
+    };
+
   return (
     <PriorityContainer>
-      <StarContainer>
-        <h3 style={{ color: priority >= 1 ? "#ffd700" : "#b3b3b3" }}>&#9733;</h3>
-        <h3 style={{ color: priority >= 2 ? "#ffd700" : "#b3b3b3" }}>&#9733;</h3>
-        <h3 style={{ color: priority >= 3 ? "#ffd700" : "#b3b3b3" }}>&#9733;</h3>
-        <h3 style={{ color: priority >= 4 ? "#ffd700" : "#b3b3b3" }}>&#9733;</h3>
-        <h3 style={{ color: priority >= 5 ? "#ffd700" : "#b3b3b3" }}>&#9733;</h3>
-      </StarContainer>
+      <PriorityFlag>
+        <BsFlagFill fill={levels(priority)} />
+      </PriorityFlag>
     </PriorityContainer>
   );
 };
@@ -18,15 +36,9 @@ export default PriorityDisplay;
 
 const PriorityContainer = styled.div`
   display: flex;
-  justify-content: center;
-
-  @media screen and (max-width: 700px) {
-    display: none !important;
-  }
+  align-items: center;
 `;
 
-const StarContainer = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: center;
-`
+const PriorityFlag = styled.div`
+  padding-left: 1.5rem;
+`;

@@ -1,36 +1,39 @@
 import styled from 'styled-components'
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
-const ProgressDisplay = ({color, progress}) => {
+const ProgressDisplay = ({progress}) => {
 
   return (
     <ProgressContainer>
       <ProgressBar>
-        <Indicator style={{backgroundColor: color, width: progress + "%"}}></Indicator>
+        <CircularProgressbar
+          value={progress}
+          styles={buildStyles({
+            pathColor: "#32cd32",
+            trailColor: "#d9d9d9",
+          })}
+        />
       </ProgressBar>
+      <Indicator>
+        <p>{progress}%</p>
+      </Indicator>
     </ProgressContainer>
-  )
+  );
 };
 
 export default ProgressDisplay;
 
 const ProgressContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-
-  @media screen and (max-width: 1000px) {
-    display: none !important;
-  }
+ display: flex;
+ align-items: center;
 `;
 
 const ProgressBar = styled.div`
-  width: 100%;
-  height: 25px;
-  background-color: #cccccc;
-  border-radius: 15px;
-  overflow: hidden;
+  width: 40px;
 `;
 
 const Indicator = styled.div`
-height: 100%;
-`;
+  font-size: 14px;
+  padding-left: .5rem;
+`

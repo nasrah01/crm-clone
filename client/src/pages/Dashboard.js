@@ -1,68 +1,53 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import TicketCard from '../components/TicketCard'
-import CategoryContext from '../context'
 import styled from "styled-components"
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
+import { BsThreeDots } from "react-icons/bs";
+import {MdAdd} from 'react-icons/md'
 
 const Dashboard = () => {
   const [tickets, setTickets] = useState(null)
   // eslint-disable-next-line no-unused-vars
-  const { categories, setCategories } = useContext(CategoryContext);
 
   const results = async () => {
-    const response = await axios.get("https://crm-monday.herokuapp.com/ticket");
+    const response = await axios.get("http://localhost:5000/ticket");
 
     const data = response.data;
     setTickets(data)
+    console.log(data)
   };
-
+  
   useEffect(() => {
     results()
   }, [])
+
+  const headings = ['Task', 'End Date', 'Status', 'Progress', 'Priority', 'Owner']
   
-    useEffect(() => {
-      setCategories([...new Set(tickets?.map(({ category }) => category))]);
-    }, [setCategories, tickets]);
-
-  const colors = ["#1a1aff", "#8a2be2", "#228b22", "#c71585", "#4d4dff"];
-
-  const uniqueCategories = [
-    ...new Set(tickets?.map(({ category }) => category))
-  ];
   return (
     <DashboardContainer>
-      {tickets?.length > 0 ? (
-        <h1>Monthly overview</h1>
-      ) : (
-        <Starter>
-          <StyledLink to="/ticket">
-            <h2>Click to start your workflow!</h2>
-          </StyledLink>
-        </Starter>
-      )}
+      <h1>Tasks</h1>
       <TicketContainer>
-        {tickets?.length > 0 &&
-          uniqueCategories?.map((uniqueCategory, index) => (
-            <CategoryContainer>
-              <CategoryTitle>
-                <h2 style={{ color: colors[index] || colors[2] }}>
-                  {uniqueCategory}
-                </h2>
-              </CategoryTitle>
-              <Category key={index}>
-                {tickets
-                  .filter((ticket) => ticket.category === uniqueCategory)
-                  .map((filteredTicket, _index) => (
-                    <TicketCard
-                      key={_index}
-                      id={filteredTicket._id}
-                      color={colors[index] || colors[2]}
-                      ticket={filteredTicket}
-                    />
-                  ))}
-              </Category>
-            </CategoryContainer>
+        <TicketHeader>
+          {
+           headings.map((title) => (
+            <p>{title}</p>
+           ))
+          }
+          <BsThreeDots />
+        </TicketHeader>
+        <StyledLink to={`/ticket`} id="link">
+          <Icon>
+            <MdAdd />
+          </Icon>
+          <p>Add New Task</p>
+        </StyledLink>
+        {tickets?.map((ticket, _index) => (
+            <TicketCard
+              key={_index}
+              id={ticket._id}
+              ticket={ticket}
+            />
           ))}
       </TicketContainer>
     </DashboardContainer>
@@ -72,27 +57,20 @@ const Dashboard = () => {
 export default Dashboard;
 
 const DashboardContainer = styled.div`
-  padding: 2rem 2rem 0 2rem;
   width: 100%;
+  background-color: #fafafa;
 
   h1 {
     font-weight: 500;
     color: #404040;
-  }
-
-  @media screen and (max-width: 550px) {
-    padding: 2rem .5rem 0 .5rem;
-
-    h1 {
-      margin-left: 1rem;
-      font-size: 26px;
-    }
+    background-color: #fff;
+    padding: 2rem 2rem 0 2rem;
   }
 `;
 
 const TicketContainer = styled.div`
   height: 80vh;
-  padding: 1rem 0;
+  padding: 1rem;
   -ms-overflow-style: none; 
   scrollbar-width: none;
   overflow: scroll;
@@ -102,33 +80,39 @@ const TicketContainer = styled.div`
   }
 `;
 
-const CategoryContainer = styled.div`
-  margin: 1rem 0;
-`;
+const TicketHeader = styled.div`
+  display: grid;
+  grid-template-columns: 30% repeat(5, 1fr) 30px;
+  padding: 1rem 0.5rem;
+  color: #333333;
+  font-weight: 600;
 
-const Starter = styled.div`
-  font-size: 14px;
-  font-weight: 400;
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: repeat(6, 1fr) 30px;
+  }
 `;
 
 const StyledLink = styled(Link)`
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  color: #003366;
+  border: 1px dashed #32cd32;
+  border-radius: 5px;
+  padding: 0.5rem;
+  cursor: pointer;
 
-  &:hover {
-    color: #0066cc;
+  p {
+    padding-top: 0.3rem;
+    color: #333333;
+    font-weight: 600;
   }
 `;
 
-const Category = styled.div`
-  padding-bottom: 2rem;
-`
-
-const CategoryTitle = styled.div`
-  padding-left: 12px;
-
-  h2 {
-    margin-bottom: 0.5rem;
-    font-size: clamp(12px, 1.5vw, 24px);
-  }
+const Icon = styled.div`
+  display: flex;
+  justify-content: center;
+  color: #000;
+  padding-right: 0.2rem;
+  color: #40bf77;
+  font-size: 20px;
 `;

@@ -5,27 +5,35 @@ const StatusDisplay = ({status}) => {
   const getColor = (status) => {
     let color;
     switch (status) {
-      case "done":
-        color = "#40bf77"
+      case "not started":
+        color = "#ff571a"
         break;
-      case "working on it":
+      case "in progress":
+        color = "#0080ff"
+        break;
+      case "in review":
         color = "#ffa500"
         break;
-      case "stuck":
-        color = "#d62929"
+      case "completed":
+        color = "#2db92d"
         break;
       default:
-        color = "rgb(30, 144, 255)";
+        color = "#e60000";
         break;
     }
 
     return color
   };
+
+  function firstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   return (
-    <StatusContainer style={{backgroundColor: getColor(status)}}>
-      {status}
+    <StatusContainer>
+      <p style={{ backgroundColor: getColor(status) }}>{firstLetter(status)}</p>
     </StatusContainer>
-  )
+  );
 };
 
 export default StatusDisplay;
@@ -33,6 +41,11 @@ export default StatusDisplay;
 const StatusContainer = styled.div`
   color: #fff;
   display: flex;
-  justify-content: center;
-  font-size: clamp(10px, 1vw, 16px);
+  align-items: center;
+  font-size: 12px;
+
+  p {
+    padding: .5rem .8rem .3rem .8rem;
+    border-radius: 5px;
+  }
 `;

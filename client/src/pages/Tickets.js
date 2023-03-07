@@ -1,9 +1,9 @@
 /* eslint-disable eqeqeq */
 import styled from 'styled-components'
-import { useState, useContext, useEffect } from 'react'
-import CategoryContext from '../context'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Tickets = ({ editMode }) => {
   const [formData, setFormData] = useState({
@@ -13,7 +13,7 @@ const Tickets = ({ editMode }) => {
   });
 
   // eslint-disable-next-line no-unused-vars
-  const { categories, setCategories } = useContext(CategoryContext);
+
 
   const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ const Tickets = ({ editMode }) => {
      try {
        if(!editMode) {
          const response = await axios.post(
-           "https://crm-monday.herokuapp.com/ticket",
+           "http://localhost:5000/ticket",
            { formData },
            config
          );
@@ -46,7 +46,7 @@ const Tickets = ({ editMode }) => {
 
        if (editMode) {
          const response = await axios.put(
-           `https://crm-monday.herokuapp.com/ticket/${id}`,
+           `http://localhost:5000/ticket/${id}`,
            { formData },
            config
          );
@@ -72,9 +72,7 @@ const Tickets = ({ editMode }) => {
   }
 
   const getData = async () => {
-    const response = await axios.get(
-      `https://crm-monday.herokuapp.com/ticket/${id}`
-    );
+    const response = await axios.get(`http://localhost:5000/ticket/${id}`);
 
     if(response.status === 201) {
       const data = await response.data;
@@ -91,49 +89,32 @@ const Tickets = ({ editMode }) => {
 
   return (
     <TicketContainer>
-      <h1>{editMode ? "Update your Ticket" : "Create a Ticket"}</h1>
+      <HeaderBlock>
+        <Header>
+          <TaskLink to={`/`}>Task Dashboard</TaskLink>
+        </Header>
+        <TicketHeader>{editMode ? "Update task" : "Add New Task"}</TicketHeader>
+      </HeaderBlock>
       <TicketBlock>
         <Form onSubmit={submitForm}>
           <FormSection>
-            <label htmlFor="title">Title</label>
+            <label htmlFor="task">Task</label>
             <input
-              id="title"
-              name="title"
+              id="task"
+              name="task"
               type="text"
               required={true}
-              value={formData.title}
+              value={formData.task}
               onChange={handleChange}
             />
 
-            <label htmlFor="description">Description</label>
+            <label htmlFor="end">Due Date</label>
             <input
-              id="description"
-              name="description"
-              type="text"
-              required={true}
-              value={formData.description}
-              onChange={handleChange}
-            />
-
-            <label>Category</label>
-            <select
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-            >
-              {categories?.map((category, i) => (
-                <option key={i} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-
-            <label htmlFor="new-category">New Category</label>
-            <input
-              id="new-category"
-              name="category"
-              type="text"
-              value={formData.category}
+              id="end"
+              name="end"
+              type="date"
+              required
+              value={formData.date}
               onChange={handleChange}
             />
 
@@ -147,7 +128,7 @@ const Tickets = ({ editMode }) => {
                 value={1}
                 checked={formData.priority == 1}
               />
-              <label htmlFor="pr-1">1</label>
+              <label htmlFor="pr-1">Low</label>
               <input
                 id="pr-2"
                 name="priority"
@@ -156,7 +137,7 @@ const Tickets = ({ editMode }) => {
                 value={2}
                 checked={formData.priority == 2}
               />
-              <label htmlFor="pr-2">2</label>
+              <label htmlFor="pr-2">Normal</label>
               <input
                 id="pr-3"
                 name="priority"
@@ -165,25 +146,7 @@ const Tickets = ({ editMode }) => {
                 value={3}
                 checked={formData.priority == 3}
               />
-              <label htmlFor="pr-3">3</label>
-              <input
-                id="pr-4"
-                name="priority"
-                type="radio"
-                onChange={handleChange}
-                value={4}
-                checked={formData.priority == 4}
-              />
-              <label htmlFor="pr-4">4</label>
-              <input
-                id="pr-5"
-                name="priority"
-                type="radio"
-                onChange={handleChange}
-                value={5}
-                checked={formData.priority == 5}
-              />
-              <label htmlFor="pr-5">5</label>
+              <label htmlFor="pr-3">High</label>
             </div>
 
             {editMode && (
@@ -204,14 +167,17 @@ const Tickets = ({ editMode }) => {
                   vlaue={formData.status}
                   onChange={handleChange}
                 >
-                  <option value="done">Done</option>
-                  <option value="working on it">Working on it</option>
-                  <option value="stuck">Stuck</option>
-                  <option value="not started">Not started</option>
+                  <option value="not started">Not Started</option>
+                  <option value="in progress">In Progress</option>
+                  <option value="in review">In Review</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
                 </select>
               </>
             )}
-            <input type="submit" value="Submit" />
+            <Buttons>
+              <input type="submit" value="Save Task" />
+            </Buttons>
           </FormSection>
           <FormSection>
             <label htmlFor="owner">Owner</label>
@@ -222,16 +188,6 @@ const Tickets = ({ editMode }) => {
               required
               value={formData.owner}
               onChange={handleChange}
-            />
-
-            <label htmlFor="avatar">Avatar</label>
-            <input
-              id="avatar"
-              name="avatar"
-              type="url"
-              value={formData.avatar}
-              onChange={handleChange}
-              required={false}
             />
           </FormSection>
         </Form>
@@ -244,8 +200,7 @@ export default Tickets
 
 const TicketContainer = styled.div`
   width: 100%;
-  padding: 2rem 2rem 0 2rem;
-  height: 90vh;
+  height: 100vh;
   -ms-overflow-style: none;
   scrollbar-width: none;
   overflow: scroll;
@@ -253,17 +208,38 @@ const TicketContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+`;
 
-  h1 {
-    font-weight: 500;
-    color: #404040;
-  }
+const HeaderBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
+  
+`
 
-  @media screen and (max-width: 550px) {
-    h1 {
-      font-size: 26px;
-    }
-  }
+const Header = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const TaskLink = styled(Link)`
+  background-color: #189a18;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 0.8rem 0.5rem 0.8rem;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 14px;
+  width: max-content;
+`;
+
+const TicketHeader = styled.h2`
+  color: #333333;
+  font-weight: 600;
+  font-size: 1.8rem;
+  padding-top: .5rem;
 `;
 
 const TicketBlock = styled.div`
@@ -275,8 +251,9 @@ const TicketBlock = styled.div`
 
 const Form = styled.form`
   display: flex;
-  box-shadow: rgba(230, 230, 255, 0.5) 0px 22px 70px 4px;
-  border-radius: 10px;
+  border: 2px solid #f2f2f2;
+  border-radius: 25px;
+  padding: 20px;
 
   @media screen and (max-width: 1000px) {
     flex-direction: column-reverse;
@@ -304,9 +281,12 @@ const FormSection = styled("section")`
   }
 
   input[type="submit"] {
+    width: max-content;
     margin: 2rem 0;
-    padding: 6px 16px;
-    background-color: #6c6cff;
+    border-radius: 30px;
+    font-weight: 600;
+    padding: 9px 16px 6px 16px;
+    background: #0073e6;
     color: #fff;
     font-size: 16px;
     cursor: pointer;
@@ -325,3 +305,5 @@ const FormSection = styled("section")`
     width: 80vw;
   }
 `;
+
+const Buttons = styled.div``

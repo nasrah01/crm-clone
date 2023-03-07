@@ -1,20 +1,26 @@
-import { CgMenuCake } from 'react-icons/cg';
 import { BiPlus } from 'react-icons/bi'
-import { MdOutlineArrowBackIosNew } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
+import { SiDatabricks } from 'react-icons/si'
+import { HiOutlineUserGroup } from "react-icons/hi";
 import styled from 'styled-components';
+import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
-
-  const navigate = useNavigate();
   return (
     <Nav>
-      <Icon>
-        <CgMenuCake size={30} color="#fff"/>
-      </Icon>
+      <Header>
+        <Icon>
+          <HiOutlineUserGroup />
+        </Icon>
+      </Header>
       <Controls>
-        <Icon onClick={() => navigate("/ticket")}><BiPlus size={20} color="#fff"/></Icon>
-        <Icon onClick={() => navigate("/")}><MdOutlineArrowBackIosNew size={20} color="#fff"/></Icon>
+        <Projects>
+          <NavLink to='/ticket'>
+            <BiPlus />
+          </NavLink>
+          <NavLink to='/'>
+            <SiDatabricks />
+          </NavLink>
+        </Projects>
       </Controls>
     </Nav>
   );
@@ -23,20 +29,49 @@ const NavBar = () => {
 export default NavBar
 
 const Nav = styled.div`
-height: 100vh;
-width: 50px;
-background: #0f1048;
-display: flex;
-flex-direction: column;
-align-items: center;
+  height: 100vh;
+  width: 70px;
+  background: #0073e6;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
 `
 
 const Controls = styled.div`
-  padding-top: 3rem;
   cursor: pointer;
 `;
 
-const Icon = styled.div`
-  padding-top: 1rem;
-  cursor: pointer;
+const Projects = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+
+  a {
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+    color: #fff;
+    margin-top: .5rem;
+    padding: .5rem;
+    width: 70%;
+    border-radius: 10px;
+
+  }
+
+  .active {
+    background-color: #fff;
+    color: #0073e6;
+  }
 `;
+
+const Icon = styled.div`
+  color: #fff;
+  font-size: 32px;
+`

@@ -1,27 +1,24 @@
-import { Link } from 'react-router-dom'
-import AvatarDisplay from './Displays/AvatarDisplay'
 import ProgressDisplay from "./Displays/ProgressDisplay";
 import StatusDisplay from "./Displays/StatusDisplay";
 import PriorityDisplay from "./Displays/PriorityDisplay";
-import DeleteBlock from "./DeleteBlock";
+import EditBlock from "./EditBlock";
 import styled from 'styled-components'
+import CalanderDisplay from './Displays/CalanderDisplay';
 
 
-const TicketCard = ({color, ticket}) => {
+const TicketCard = ({ticket}) => {
 
-  const { _id, title, owner, avatar, status, priority, progress} = ticket;
+  const { _id, owner, task, end, status, priority, progress} = ticket;
 
   return (
     <Card>
-      <Indicator style={{backgroundColor: color}}></Indicator>
-      <StyledLink to={`/ticket/${_id}`} id="link">
-        <h3>{title}</h3>
-        <AvatarDisplay owner={owner} avatar={avatar}/>
-        <StatusDisplay status={status}/>
-        <PriorityDisplay priority={priority}/>
-        <ProgressDisplay color={color} progress={progress}/>
-      </StyledLink>
-      <DeleteBlock id={_id}/>
+      <p>{task}</p>
+      <CalanderDisplay end={end} />
+      <StatusDisplay status={status} />
+      <ProgressDisplay progress={progress} />
+      <PriorityDisplay priority={priority} />
+      <p>{owner}</p>
+      <EditBlock id={_id} />
     </Card>
   );
 }
@@ -29,40 +26,23 @@ const TicketCard = ({color, ticket}) => {
 export default TicketCard
 
 const Card = styled.div`
-  display: flex;
-`
+  display: grid;
+  grid-template-columns: 30% repeat(5, 1fr) 30px;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #f2f2f2;
+  border-left: 5px solid #f2138e;
+  border-radius: 5px;
+  background: #ffffff;
 
-const StyledLink = styled(Link)`
-  display: flex;
-  width: 100%;
-  text-decoration: none;
-  color: #000;
-
-  > * {
+  p {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    background: #f2f2f2;
-    margin: 2px 2px 2px 0;
-    padding: 10px;
-    width: 100%;
+    font-weight: 500;
+    font-size: 14px;
   }
 
-  h3 {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    color: #404040;
-    font-weight: normal;
-    font-size: clamp(10px, 1vw, 16px);
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: repeat(6, 1fr) 30px;
   }
 `;
-
-const Indicator = styled.div`
-  margin: 2px 0;
-  padding: 6px;
-
-  @media screen and (max-width: 550px) {
-    padding: 3px;
-  }
-`
