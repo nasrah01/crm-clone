@@ -9,14 +9,8 @@ import {MdAdd} from 'react-icons/md'
 const Dashboard = () => {
   const [tickets, setTickets] = useState(null)
   // eslint-disable-next-line no-unused-vars
-
-  const [display, setDisplay] = useState(false)
-
-  if (window.innerWidth <= 750) {
-    setDisplay(true);
-  } else {
-    setDisplay(false);
-  }
+  const windowWidth = window.innerWidth
+  const [display, setDisplay] = useState(windowWidth <= '750' ? true : false)
 
   useEffect(() => {
     const handleWindowResize = () => {
