@@ -12,6 +12,12 @@ const Dashboard = () => {
 
   const [display, setDisplay] = useState(false)
 
+  if (window.innerWidth <= 750) {
+    setDisplay(true);
+  } else {
+    setDisplay(false);
+  }
+
   useEffect(() => {
     const handleWindowResize = () => {
 
