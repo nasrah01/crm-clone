@@ -35,6 +35,10 @@ const Nav = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media screen and (max-width: 600px) {
+    height: 100%;
+  }
 `;
 
 const Header = styled.div`

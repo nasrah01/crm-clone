@@ -37,6 +37,10 @@ export default PriorityDisplay;
 const PriorityContainer = styled.div`
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 750px) {
+    display: none;
+  }
 `;
 
 const PriorityFlag = styled.div`

@@ -25,8 +25,12 @@ const ProgressDisplay = ({progress}) => {
 export default ProgressDisplay;
 
 const ProgressContainer = styled.div`
- display: flex;
- align-items: center;
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 750px) {
+    display: none;
+  }
 `;
 
 const ProgressBar = styled.div`

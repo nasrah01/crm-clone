@@ -10,6 +10,27 @@ const Dashboard = () => {
   const [tickets, setTickets] = useState(null)
   // eslint-disable-next-line no-unused-vars
 
+  const [display, setDisplay] = useState(false)
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+
+      if(window.innerWidth <= 750) {
+      setDisplay(true);
+      } else {
+        setDisplay(false)
+      }
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  });
+
+  console.log(display)
+
   const results = async () => {
     const response = await axios.get("http://localhost:5000/ticket");
 
@@ -23,17 +44,17 @@ const Dashboard = () => {
   }, [])
 
   const headings = ['Task', 'End Date', 'Status', 'Progress', 'Priority', 'Owner']
+
+  const MobileHeadings = ['Task', 'Status', 'Owner']
   
   return (
     <DashboardContainer>
       <h1>Tasks</h1>
       <TicketContainer>
         <TicketHeader>
-          {
-           headings.map((title) => (
-            <p>{title}</p>
-           ))
-          }
+          {display
+            ? MobileHeadings.map((title) => <p>{title}</p>)
+            : headings.map((title) => <p>{title}</p>)}
           <BsThreeDots />
         </TicketHeader>
         <StyledLink to={`/ticket`} id="link">
@@ -43,12 +64,8 @@ const Dashboard = () => {
           <p>Add New Task</p>
         </StyledLink>
         {tickets?.map((ticket, _index) => (
-            <TicketCard
-              key={_index}
-              id={ticket._id}
-              ticket={ticket}
-            />
-          ))}
+          <TicketCard key={_index} id={ticket._id} ticket={ticket} />
+        ))}
       </TicketContainer>
     </DashboardContainer>
   );
@@ -89,6 +106,10 @@ const TicketHeader = styled.div`
 
   @media screen and (max-width: 1000px) {
     grid-template-columns: repeat(6, 1fr) 30px;
+  }
+
+  @media screen and (max-width: 750px) {
+    grid-template-columns: repeat(3, 1fr) 30px;
   }
 `;
 

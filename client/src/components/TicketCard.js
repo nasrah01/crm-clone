@@ -45,4 +45,12 @@ const Card = styled.div`
   @media screen and (max-width: 1000px) {
     grid-template-columns: repeat(6, 1fr) 30px;
   }
+
+  @media screen and (max-width: 750px) {
+    grid-template-columns: repeat(3, 1fr) 30px;
+  }
+
+  @media screen and (max-width: 450px) {
+    grid-column-gap: 2rem;
+  }
 `;

@@ -208,6 +208,10 @@ const TicketContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  @media screen and (max-width: 600px) {
+    height: 100%;
+  }
 `;
 
 const HeaderBlock = styled.div`
@@ -302,7 +306,8 @@ const FormSection = styled("section")`
   }
 
   @media screen and (max-width: 550px) {
-    width: 80vw;
+    width: 300px;
+    margin: 0;
   }
 `;
 

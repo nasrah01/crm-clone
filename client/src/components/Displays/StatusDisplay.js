@@ -45,7 +45,7 @@ const StatusContainer = styled.div`
   font-size: 12px;
 
   p {
-    padding: .5rem .8rem .3rem .8rem;
+    padding: 0.5rem 0.8rem 0.3rem 0.8rem;
     border-radius: 5px;
   }
 `;

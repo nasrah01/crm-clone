@@ -34,4 +34,8 @@ export default CalanderDisplay;
 const DateContainer = styled.div`
   display: flex;
   align-items: center;
-`
+
+  @media screen and (max-width: 750px) {
+    display: none;
+  }
+`;
