@@ -33,7 +33,7 @@ const Tickets = ({ editMode }) => {
      try {
        if(!editMode) {
          const response = await axios.post(
-           "http://localhost:5000/ticket",
+           "https://crm-nn9h.onrender.com/ticket",
            { formData },
            config
          );
@@ -46,7 +46,7 @@ const Tickets = ({ editMode }) => {
 
        if (editMode) {
          const response = await axios.put(
-           `http://localhost:5000/ticket/${id}`,
+           `https://crm-nn9h.onrender.com/ticket/${id}`,
            { formData },
            config
          );
@@ -72,7 +72,7 @@ const Tickets = ({ editMode }) => {
   }
 
   const getData = async () => {
-    const response = await axios.get(`http://localhost:5000/ticket/${id}`);
+    const response = await axios.get(`https://crm-nn9h.onrender.com/ticket/${id}`);
 
     if(response.status === 201) {
       const data = await response.data;

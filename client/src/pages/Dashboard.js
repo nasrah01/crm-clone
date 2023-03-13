@@ -32,7 +32,7 @@ const Dashboard = () => {
   console.log(display)
 
   const results = async () => {
-    const response = await axios.get("http://localhost:5000/ticket");
+    const response = await axios.get("https://crm-nn9h.onrender.com/ticket");
 
     const data = response.data;
     setTickets(data)

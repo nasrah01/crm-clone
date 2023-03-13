@@ -17,7 +17,7 @@ const EditBlock = (_id) => {
 
   const deleteTicket = async() => {
     const id = _id.id
-    const response = await axios.delete(`http://localhost:5000/ticket/${id}`);
+    const response = await axios.delete(`https://crm-nn9h.onrender.com/ticket/${id}`);
 
     if(response.status === 201) {
       window.location.reload();
