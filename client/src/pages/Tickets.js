@@ -266,6 +266,11 @@ const Form = styled.form`
   @media screen and (max-width: 1000px) {
     flex-direction: column-reverse;
   }
+
+  @media screen and (max-width: 550px) {
+    width: 100%;
+    margin: .5rem;
+  }
 `;
 
 const FormSection = styled("section")`
@@ -293,7 +298,7 @@ const FormSection = styled("section")`
     margin: 2rem 0;
     border-radius: 30px;
     font-weight: 600;
-    padding: 9px 16px 6px 16px;
+    padding: 0.8rem 0.8rem 0.5rem 0.8rem;
     background: #0073e6;
     color: #fff;
     font-size: 16px;
@@ -315,7 +320,7 @@ const FormSection = styled("section")`
   }
 
   @media screen and (max-width: 550px) {
-    width: 300px;
+    width: 100%;
     margin: 0;
   }
 `;

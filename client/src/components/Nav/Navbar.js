@@ -73,10 +73,6 @@ const Projects = styled.div`
     background-color: #fff;
     color: #0073e6;
   }
-
-  @media screen and (max-width: 600px) {
-    padding: 5rem 0;
-  }
 `;
 
 const Icon = styled.div`
