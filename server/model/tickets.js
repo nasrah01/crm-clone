@@ -10,11 +10,7 @@ const schemaOptions = {
 
 const ticketSchema = new Schema(
   {
-    category: {
-      type: String,
-      required: true,
-    },
-    title: {
+    task: {
       type: String,
       required: true,
     },
@@ -22,7 +18,7 @@ const ticketSchema = new Schema(
       type: String,
       required: true,
     },
-    avatar: {
+    end: {
       type: String,
       required: true,
     },
@@ -38,14 +34,10 @@ const ticketSchema = new Schema(
       type: Number,
       required: true,
     },
-    description: {
+    timestamp: {
       type: String,
       required: true,
     },
-    timestamp: {
-      type: String,
-      required: true
-    }
   },
   schemaOptions
 );

@@ -37,6 +37,7 @@ app.get("/ticket/:id", async (req, res) => {
 app.post("/ticket", async (req, res) => {
   const formData = req.body.formData;
 
+  console.log(formData)
   try {
     const result = await Task.create(formData)
     console.log(result)
@@ -50,8 +51,6 @@ app.post("/ticket", async (req, res) => {
 app.put("/ticket/:id", async (req, res) => {
   const id = req.params.id;
   const data = req.body.formData
-  console.log(data)
-  console.log(id)
 
   try {
     const updateTicket = await Task.updateOne({ _id: id }, { $set: data});
