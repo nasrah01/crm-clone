@@ -237,6 +237,10 @@ const TaskLink = styled(Link)`
   font-weight: 600;
   font-size: 14px;
   width: max-content;
+
+  &:hover {
+    background-color: #116e11;
+  }
 `;
 
 const TicketHeader = styled.h2`
@@ -295,10 +299,15 @@ const FormSection = styled("section")`
     font-size: 16px;
     cursor: pointer;
     transition: 0.5s ease;
+    border: none;
 
     &:hover {
       background-color: #3333ff;
     }
+  }
+
+  input[type="radio"] {
+    margin-left: 1rem;
   }
 
   @media screen and (max-width: 1000px) {
@@ -311,4 +320,6 @@ const FormSection = styled("section")`
   }
 `;
 
-const Buttons = styled.div``
+const Buttons = styled.div`
+  
+`

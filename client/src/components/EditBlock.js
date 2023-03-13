@@ -70,7 +70,15 @@ const EditContainer = styled.div`
 
 const ListBlock = styled.div`
   cursor: pointer;
-`
+  display: flex;
+  justify-content: center;
+  border-radius: 50%;
+  padding: .4rem;
+
+  &:hover {
+    background-color: #f2f2f2;
+  }
+`;
 
 const OpenList = styled.div`
   width: 100px;
